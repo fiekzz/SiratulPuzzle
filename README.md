@@ -1,9 +1,11 @@
 # SIRATUL PUZZLE
 
-# Group H (PSD)
-
 ## Get started
 
+````commandline
+git clone https://github.com/fiekzz/SiratulPuzzle.git
 ````
+
+````commandline
 pip install -r requirements.txt
 ````
