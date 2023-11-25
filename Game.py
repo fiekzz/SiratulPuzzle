@@ -5,6 +5,7 @@ import LevelSelector
 from Puzzle import Puzzle
 import ImagePiece
 from singleton import singleton
+from weakref import WeakValueDictionary
 
 listLocation = []
 
@@ -14,6 +15,8 @@ class GameSingleton:
 
     # Game constructor
     # init xy 00
+
+    _instances = WeakValueDictionary()
 
     def __init__(self, width, height, game_rect=(0, 0, 328, 328)):
         # Set the display screen dimensions
@@ -73,7 +76,6 @@ class GameSingleton:
 
 def make_puzzle(image_path, board_rect, image_text):
     """Creates the game puzzle"""
-    # x, y, width, height = board_rect
     width = 500
     height = 500
     x = 70
@@ -105,20 +107,10 @@ def make_subsurfaces(surface, offset=(0, 0)):
                 objectLocation = ImageLocation(index)
 
             index += 1
-            # if x != ((0, width, width // 4) - 1):
             locationList.append(objectLocation)
-            # print(ImageLocation.getX(), ImageLocation.getY())
             yield ImagePiece.ImagePiece(offx + x, offy + y, subsurface, objectLocation)
 
-        # global listLocation
-        # print()
-        # print(locationList)
         constList.append(locationList)
-        # listLocation.append(locationList)
-        # print()
-
-    # Remove the last element of the array
-    # constList[-1][-1] = ImageLocation(-1, -1)
 
     global listLocation
     listLocation = constList

@@ -25,34 +25,8 @@ class Puzzle:
         self.x, self.y, self.image_pieces, self.image_path, self.image_text = x, y, image_pieces, image_path, image_text
         self.imageLocation = imageLocation
 
-        # global fixed_location
-        # self.fixed_location = tuple(imageLocation)
-        # self.FIXEDLOCATION = imageLocation
         self.piecesList: list(Piece) = []
         print("-----------------------------")
-        # for row in self.fixed_location:
-        #     for element in row:
-        #         print(element.index, end=' ')
-        #     print()
-        # print("-----------------------------")
-
-        # for index, piece in enumerate(self.image_pieces):
-        #     self.piecesList.append(Piece(piece, index))
-        #
-        # for i in range(len(self.imageLocation)):
-        #     print(self.imageLocation[3][i].index, end=' ')
-        # for i, row in enumerate(self.imageLocation):
-        #     for j, element in enumerate(row):
-        #         if element.index == -1:
-        #             print(i, j)
-        #     print()
-
-        # if self.imageLocation == self.FIXEDLOCATION:
-        #     game = Game.GameSingleton()
-        #     game.isBreak = True
-
-        # print(self.imageLocation.index(-1))
-
 
     @property
     def rect(self):
@@ -76,8 +50,8 @@ class Puzzle:
             self.move('left')
         elif event.key == pygame.K_ESCAPE:
             if confirm_quit():
-                pygame.quit()
-                sys.exit()
+                game = Game.GameSingleton()
+                game.started = False
 
 
     def swap_up(self, row, col):
@@ -152,16 +126,25 @@ class Puzzle:
                 print(element, end=' ')
             print()
         print("----------------------------- ^^^ IMAGELOCATION")
+
+        currentArr = []
+
         for row in self.imageLocation:
+            arr = []
             for element in row:
                 print(element.index, end=' ')
+                arr.append(element.index)
             print()
+            currentArr.append(arr)
 
-        narr1 = n.array([self.imageLocation])
-        narr2 = n.array([FixedList.fixed_list])
+        result = compare(currentArr, FixedList.fixed_list)
 
-        result = (narr1 == narr2).all()
+        # narr1 = n.array([self.imageLocation])
+        # narr2 = n.array([FixedList.fixed_list])
+        #
+        # result = (narr1 == narr2).all()
 
+        print(result)
         if result:
             if confirm_finished():
                 game = Game.GameSingleton()
@@ -239,3 +222,5 @@ def confirm_quit():
 def confirm_finished():
     result = messagebox.showinfo("Game finished", "Congratulations! You have finished the game")
     return result
+
+def compare(a, b): return a == b
