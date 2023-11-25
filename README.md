@@ -2,10 +2,14 @@
 
 ## Get started
 
-````commandline
-git clone https://github.com/fiekzz/SiratulPuzzle.git
-````
+Clone the repository
 
-````commandline
+```commandline
+git clone https://github.com/fiekzz/SiratulPuzzle.git
+```
+
+Install requirements
+
+```commandline
 pip install -r requirements.txt
-````
+```
