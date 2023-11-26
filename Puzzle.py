@@ -3,9 +3,7 @@ from random import choice
 from tkinter import messagebox
 import Game
 import style
-import sys
 import numpy as n
-from singleton import singleton
 
 class Piece:
     def __init__(self, image_piece, index):
@@ -24,6 +22,7 @@ class Puzzle:
     def __init__(self, x, y, image_pieces, image_path, image_text: str, imageLocation: list):
         self.x, self.y, self.image_pieces, self.image_path, self.image_text = x, y, image_pieces, image_path, image_text
         self.imageLocation = imageLocation
+        self.ischeck = False
 
         self.piecesList: list(Piece) = []
         print("-----------------------------")
@@ -137,20 +136,18 @@ class Puzzle:
             print()
             currentArr.append(arr)
 
-        result = compare(currentArr, FixedList.fixed_list)
+        if self.ischeck:
+            narr1 = n.array([currentArr])
+            narr2 = n.array([FixedList.fixed_list])
+            #
+            result = (narr1 == narr2).all()
 
-        # narr1 = n.array([self.imageLocation])
-        # narr2 = n.array([FixedList.fixed_list])
-        #
-        # result = (narr1 == narr2).all()
+            print(result)
+            if result:
+                if confirm_finished():
+                    game = Game.GameSingleton()
+                    game.isBreak = True
 
-        print(result)
-        if result:
-            if confirm_finished():
-                game = Game.GameSingleton()
-                game.isBreak = True
-                # pygame.quit()
-                # sys.exit()
 
 
     def shuffle(self, moves=100):
@@ -158,6 +155,8 @@ class Puzzle:
         for _ in range(moves):
             m = choice(('up', 'right', 'down', 'left'))
             self.move(m)
+
+        self.ischeck = True
 
         # Makes sure the blank space is at the bottom-right corner
         # self.move('left'), self.move('left'), self.move('left')

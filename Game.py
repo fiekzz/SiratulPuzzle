@@ -1,20 +1,16 @@
-import sys
-
 import pygame
 import LevelSelector
 from Puzzle import Puzzle
 import ImagePiece
 from singleton import singleton
 from weakref import WeakValueDictionary
+import sys
 
 listLocation = []
 
 @singleton
 class GameSingleton:
     """The game class."""
-
-    # Game constructor
-    # init xy 00
 
     _instances = WeakValueDictionary()
 
@@ -73,6 +69,8 @@ class GameSingleton:
             if self.isBreak:
                 break
         pygame.quit()
+        # del GameSingleton
+        sys.exit()
 
 def make_puzzle(image_path, board_rect, image_text):
     """Creates the game puzzle"""

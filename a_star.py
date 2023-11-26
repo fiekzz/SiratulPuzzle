@@ -2,10 +2,6 @@ from copy import deepcopy
 import numpy as np
 import time
 
-
-# IN CONSTRUCTION #
-
-
 def bestsolution(state):
     bestsol = np.array([], int).reshape(-1, 9)
     count = len(state) - 1
