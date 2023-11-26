@@ -13,3 +13,9 @@ Install requirements
 ```commandline
 pip install -r requirements.txt
 ```
+
+Run the game
+
+```commandline
+python main.py
+```
